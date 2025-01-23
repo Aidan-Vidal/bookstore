@@ -1,0 +1,8 @@
+img {
+    height: 120px;
+}
+.book {
+    display: flex;
+    gap: 80px;
+    padding-bottom: 80px;
+}
