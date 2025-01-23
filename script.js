@@ -179,18 +179,26 @@ function init() {
 }
 function layout() {
     for (let index = 0; index < books.length; index++) {
-        document.getElementById('allBooks').innerHTML += `<div class="book" id="book${index}"><img src="/book-2022461_640.png"><img onclick="toggleLike(${index})" class="like_button" src="/heart-2398770_640.png"></div>` //erstellt div mit Bild für alle Bücher
-        document.getElementById(`book${index}`).innerHTML += `<div id="book${index}_details"></div>` //erstellt leere div für Infos zum jeweiligen Buch
+        document.getElementById('allBooks').innerHTML += //erstellt für jedes ausgelesene Buch einen formartierten Bereich
+        `<div class="book" id="book${index}">
+            <img src="/book-2022461_640.png">
+            <div class="likes">
+                <img onclick="toggleLike(${index})" class="like_button" src="/heart-2398770_640.png">
+                <span class="current_likes"></span>
+            </div>
+            <div id="book${index}_details"></div>
+        </div>`
     }
 }
 
 function showLibrary() {
     for (let index = 0; index < books.length; index++) {
         const bookObject = books[index];
-        document.getElementById(`book${index}_details`).innerHTML = bookDetails(bookObject); //füllt jede div mit zugehörigem Inhalt, übergibt der Funktion ein komplettes Buch-Objekt zum Extrahieren der Infos
+        document.getElementById(`book${index}_details`).innerHTML = bookDetails(bookObject); //füllt details-div mit zugehörigem Inhalt, übergibt der Funktion ein komplettes Buch-Objekt zum Extrahieren der Infos
         if (bookObject.liked == true) {
             document.getElementsByClassName('like_button')[index].classList.add('liked'); //Prüft, ob das Buch zuvor bereits geliket wurde
-        } 
+        }
+        document.getElementsByClassName('current_likes')[index].innerHTML = bookObject.likes; //schreibt die aktuelle Like-Zahl rein
     }
     
 }
@@ -201,7 +209,7 @@ function bookDetails(bookObject) {
     
     for (let index = 0; index < bookDetails.length; index++) { //for-Schleife zum Auslesen des Arrays
         const singleDetail = bookDetails[index];
-        if (singleDetail[0] != "liked") { //überspringt das Weitergeben von "liked" (wird durch den Like-Knopf dargestellt)
+        if (singleDetail[0] != "liked" && singleDetail[0] != "likes") { //überspringt das Weitergeben von "liked" & "likes" (wird durch den Like-Knopf dargestellt)
             result += `${singleDetail[0]}: ${singleDetail[1]}<br>`; //speichert formatierten HTML-Code in result
         }
     }

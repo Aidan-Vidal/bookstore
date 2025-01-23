@@ -22,3 +22,8 @@ img {
 .liked {
     filter: grayscale(0%);
 }
+.likes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
