@@ -1,8 +1,24 @@
+@font-face {
+    font-family: Macondo;
+    src: url(/Macondo-Regular.ttf);
+  }
+  
+  div {
+    font-family: Macondo;
+  }
 img {
     height: 120px;
 }
 .book {
     display: flex;
-    gap: 80px;
+    gap: 40px;
     padding-bottom: 80px;
+    align-items: center;
+}
+.like_button {
+    height: 50px;
+    filter: grayscale(100%);
+}
+.liked {
+    filter: grayscale(0%);
 }

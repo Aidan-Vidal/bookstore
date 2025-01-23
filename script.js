@@ -174,15 +174,25 @@ let books = [
     }
   ]
 function init() {
+    layout();
     showLibrary();
 }
+function layout() {
+    for (let index = 0; index < books.length; index++) {
+        document.getElementById('allBooks').innerHTML += `<div class="book" id="book${index}"><img src="/book-2022461_640.png"><img onclick="toggleLike(${index})" class="like_button" src="/heart-2398770_640.png"></div>` //erstellt div mit Bild für alle Bücher
+        document.getElementById(`book${index}`).innerHTML += `<div id="book${index}_details"></div>` //erstellt leere div für Infos zum jeweiligen Buch
+    }
+}
+
 function showLibrary() {
     for (let index = 0; index < books.length; index++) {
         const bookObject = books[index];
-        document.getElementById('allBooks').innerHTML += `<div class="book" id="book${index}"><img src="/book-2022461_640.png"></div>` //erstellt div mit Bild für alle Bücher
-        document.getElementById(`book${index}`).innerHTML += `<div id="book${index}_details"></div>` //erstellt leere div für Infos zum jeweiligen Buch        
-        document.getElementById(`book${index}_details`).innerHTML += bookDetails(bookObject); //füllt jede div mit zugehörigem Inhalt, übergibt der Funktion ein komplettes Buch-Objekt zum Extrahieren der Infos
+        document.getElementById(`book${index}_details`).innerHTML = bookDetails(bookObject); //füllt jede div mit zugehörigem Inhalt, übergibt der Funktion ein komplettes Buch-Objekt zum Extrahieren der Infos
+        if (bookObject.liked == true) {
+            document.getElementsByClassName('like_button')[index].classList.add('liked'); //Prüft, ob das Buch zuvor bereits geliket wurde
+        } 
     }
+    
 }
 
 function bookDetails(bookObject) {
@@ -191,7 +201,31 @@ function bookDetails(bookObject) {
     
     for (let index = 0; index < bookDetails.length; index++) { //for-Schleife zum Auslesen des Arrays
         const singleDetail = bookDetails[index];
-        result += `${singleDetail[0]}: ${singleDetail[1]}<br>`; //speichert formatierten HTML-Code in result
+        if (singleDetail[0] != "liked") { //überspringt das Weitergeben von "liked" (wird durch den Like-Knopf dargestellt)
+            result += `${singleDetail[0]}: ${singleDetail[1]}<br>`; //speichert formatierten HTML-Code in result
+        }
     }
     return result;
+}
+function toggleLike(index) {
+    document.getElementsByClassName('like_button')[index].classList.toggle('liked');
+    let bookRef = books[index];
+    if (bookRef.liked == true) {
+        books[index].likes--;
+        bookRef.liked = false;
+    } else {
+        books[index].likes++;
+        bookRef.liked = true;
+    }
+    showLibrary();
+}
+
+
+function likeButton_pressed() {
+    for (let index = 0; index < books.length; index++) {
+        const bookObject = books[index];
+        if (bookObject.liked == true) {
+            document.getElementsByClassName('like_button')[index].classList.add('liked');
+        } 
+    }
 }
