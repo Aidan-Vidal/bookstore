@@ -12,7 +12,6 @@ img {
 .book {
     display: flex;
     gap: 40px;
-    padding-bottom: 80px;
     align-items: center;
 }
 .like_button {
@@ -23,6 +22,27 @@ img {
     filter: grayscale(0%);
 }
 .likes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.book_details {
+    display: flex;
+    flex-direction: column;
+}
+.space_between {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 60px;
+    align-items: center;
+    padding-bottom: 80px;
+}
+.thumbnail {
     display: flex;
     flex-direction: column;
     align-items: center;
